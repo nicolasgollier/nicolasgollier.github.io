@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="fr" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Diabete : insulinotherapie fonctionnelle</title>
+  </head>
+
+  <body>
+
+    <h1>Diabete : insulinotherapie fonctionnelle</h1>
+
+    <FORM>
+
+      <h3>Taux de glycemie</h3>
+      <input type="text" name="valeurs" id="glycemie" value="" />
+      <h3>Nombre de glucide</h3>
+      <input type="text" name="valeurs" id="glucideAbsorb" value="" />
+
+      <input type="button" value="Calculer" onclick="afficher(); afficher2(); afficher3();" />
+    </FORM>
+
+    <! Calcul de la correction >
+      <div id="resultat"></div>
+      <script>
+        function afficher()
+          {
+            var txsensibilite = 30;
+            var dL = 10;
+            var objectifglycemie = 100;
+            var ratioUIglucides = 1.40;
+
+            var glucideAbsorb = document.getElementById("glucideAbsorb").value;
+            var nombre = document.getElementById("glycemie").value;
+
+            var total1 = nombre - objectifglycemie ;
+            var total2 = total1 / txsensibilite ;
+            var total3 = (total2.toFixed(1));
+
+        document.getElementById('resultat').innerHTML = '<p>La correction en insuline de <strong>'+total3+'</strong> U pour etre a 100 mg/dL. </p>';
+          }
+      </script>
+
+    <! Calcul pour repas !>
+    <div id="resultat2"></div>
+    <script>
+      function afficher2()
+        {
+      var txsensibilite = 30;
+      var dL = 10;
+      var objectifglycemie = 100;
+      var glucideAbsorb = document.getElementById("glucideAbsorb").value;
+      var ratioUIglucides = 1.40;
+      var nombre = document.getElementById("glycemie").value;
+
+      var total_absorb1 = glucideAbsorb * ratioUIglucides
+      var total_absorb2 = total_absorb1 / dL
+      var total_Injection_absorb = (total_absorb2.toFixed(1));
+
+      document.getElementById('resultat2').innerHTML = '<p>Injection en insuline de <strong>'+total_Injection_absorb+'</strong> U pour '+glucideAbsorb+'g de glucide. </p>';
+        }
+    </script>
+
+    <! Calcul du total 1+2 !>
+    <div id="resultat3"></div>
+    <script>
+      function afficher3()
+      {
+        var injection_total1 = total_absorb2 + total3
+        var injection_total2 = (injection_total1.toFixed(1))
+
+        document.getElementById('resultat3').innerHTML ='<p>Pour un total de <<strong>'+injection_total2+'</strong> U.</p>';
+      }
+    </script>
+
+  </body>
+</html>
